@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import copy
+import sys
+import random
 class DFA():
     def __init__(self,state_set,alpha_set,transfer_map,start_state,accept_set):
         self.state_set = state_set
@@ -24,34 +26,48 @@ class DFA():
             return False
         else:
             return True
-            
-        
-def main():
-    dfa = DFA(
-        {"S","A","B","C"},
-        {"0","1"},
-        {
-            "S": {
-                "1":"A",
-                "0":"B",
-            },
-            "A": {
-                "1":"A",
-                "0":"B",
-            },
-            "B": {
-                "1": "A",
-                "0": "C",
-            },
-            "C": {
-                "0":"C",
-                "1": "A",
-            }
+
+dfa = DFA(
+    {"S","A","B","C"},
+    {"0","1"},
+    {
+        "S": {
+            "1":"A",
+            "0":"B",
         },
-        "S",
-        {"C"}
-    )
-    result = dfa.run("101110001")
-    print(result)
+        "A": {
+            "1":"A",
+            "0":"B",
+        },
+        "B": {
+            "1": "A",
+            "0": "C",
+        },
+        "C": {
+            "0":"C",
+            "1": "A",
+        }
+    },
+    "S",
+    {"C"}
+)
+
+def test():
+    for i in range(10):
+        number = random.randint(0x0000ffff,0xffffffff)
+        string = bin(number)[2:]
+        result = dfa.run(string)
+        print(f"test_data[{i}]: result is {result}. \tthe test value is \"{string}\"")
+
+def main():
+    if len(sys.argv) == 2:
+        print(dfa.run(sys.argv[1]))
+    elif len(sys.argv) == 1:
+        test()
+    else:
+        print("Usage:")
+        print("\tpython3 ./problem_2_2_4_a.py <string>")
+        print("\tpython3 ./problem_2_2_4_a.py")
+
 if __name__ == "__main__":
     main()
