@@ -1,2 +1,4 @@
-# automaton_learning
-Learning something.
+# 自动机理论、语言和计算导论 第三版(Hoperoft. J. E.)
+## 习题作业
+### 2.2.4-a
+
